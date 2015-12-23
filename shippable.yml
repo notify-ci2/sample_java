@@ -5,8 +5,26 @@ jdk:
    - oraclejdk7
    - openjdk6
    - oraclejdk8
+   
+build_image: drydock/u12jav:tip
+#build_image: shippable/minv2
+   
+env:
+   - FOO=test  
+  # - TEST=foo
+   
+before_script:
+   - mkdir -p shippable/testresults
+   - mkdir -p shippable/codecovarage
 
 after_success:
    - mvn clean cobertura:cobertura
    - mvn test
-
+   
+notifications:
+   email: 
+      varsha@shippable.com
+   irc: "chat.freenode.net#test-irc"
+      
+archive: true
+#cache: true
